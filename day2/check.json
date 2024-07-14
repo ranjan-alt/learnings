@@ -1,0 +1,23 @@
+{
+  "id": 1,
+  "demography": {
+    "name": "ranjan",
+    "address": ["ace city", "noida"]
+  }
+}
+
+
+{
+
+    "b":2,
+    "a":1,
+    "d":4,
+    "c":3,
+    "e":5
+
+}
+
+// jo hmari key hai wo sort ho jani chahiye acesding and descending and key ko sort krna hai 
+
+
+
