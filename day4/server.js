@@ -80,8 +80,45 @@ app.post("/addCollege", (req, res) => {
 });
 
 // put (update college by id)
+app.put("/updateCollege/:id", (req, res) => {
+  const { id } = req.params;
+  const { name, state, university } = req.body;
+
+  const updateCollege = collegeList.findIndex(
+    (college) => college.id === parseInt(id)
+  );
+
+  if (updateCollege !== -1) {
+    collegeList[updateCollege].name = name;
+    collegeList[updateCollege].state = state;
+    collegeList[updateCollege].university = university;
+
+    res.status(200).json({
+      message: "collage details updated",
+      college: collegeList[updateCollege],
+    });
+  } else {
+    res.status(404).json({ message: "college not found with this id " });
+  }
+  console.log(updateCollege, "ranjan");
+});
 
 // delete college by id
+
+app.delete("/deleteCollege/:id", (req, res) => {
+  const { id } = req.params;
+  const deleteCollege = collegeList.findIndex(
+    (college) => college.id == parseInt(id)
+  );
+  if (deleteCollege !== -1) {
+    const collegeData = collegeList.splice(deleteCollege, 1); //very important concept
+    res
+      .status(200)
+      .json({ message: "college deleted", college: collegeData[0] });
+  } else {
+    res.status(404).json({ message: "College not found with this id" });
+  }
+});
 
 app.listen(8000, () => {
   console.log("server is listing on port 8000");
