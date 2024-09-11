@@ -9,10 +9,19 @@ const port = process.env.PORT;
 const authRoute = require("./routes/auth");
 const { middleware } = require("./middleware");
 const userDetails = require("./routes/userRoutes");
+const registerUser = require("./routes/userRoutes");
 const { middlewareOne } = require("./middleware/middleware1");
+const { db } = require("./db");
 
 app.use("/auth", authRoute);
+app.use("/api", registerUser);
 app.use("/user", middleware, middlewareOne, userDetails);
-app.listen(port, (req, res) => {
-  console.log(`server is listing on port ${port}`);
-});
+db.connect()
+  .then(() => {
+    app.listen(port, (req, res) => {
+      console.log(`server is listing on port ${port}`);
+    });
+  })
+  .catch((err) => {
+    console.log(`connection error ${err.message}`);
+  });
